@@ -1,7 +1,7 @@
 import torch
 import typer
-from data import corrupt_mnist
-from model import MyAwesomeModel
+from sven_project_day_2.data import corrupt_mnist
+from sven_project_day_2.model import MyAwesomeModel
 
 # Device configuration (using CUDA if available, otherwise using CPU)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")

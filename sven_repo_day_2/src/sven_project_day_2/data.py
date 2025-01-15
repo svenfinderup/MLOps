@@ -1,13 +1,9 @@
 from pathlib import Path
-
-import typer
-from torch.utils.data import Dataset
-
 import torch
-import os
 from torch.utils.data import DataLoader, TensorDataset
 
-DATA_PATH = "data/corruptedmnist"
+DATA_PATH = "data/corruptmnist_v1"
+PROCESSED_PATH = "data/processed"
 
 def normalize_tensor(tensor):
     """Normalize the tensor to have zero mean and unit variance."""
@@ -29,7 +25,7 @@ def corrupt_mnist():
     test_images = torch.load(f"{DATA_PATH}/test_images.pt")
     test_target = torch.load(f"{DATA_PATH}/test_target.pt")
 
-    # Normalize the images
+    # Normalize the images (mean 0, std 1)
     train_images = normalize_tensor(train_images)
     test_images = normalize_tensor(test_images)
 
@@ -45,5 +41,15 @@ def corrupt_mnist():
     train_set = TensorDataset(train_images, train_target)
     test_set = TensorDataset(test_images, test_target)
 
+    # Save the processed data to the processed folder
+    Path(PROCESSED_PATH).mkdir(parents=True, exist_ok=True)
+    
+    torch.save(train_images, f"{PROCESSED_PATH}/train_images.pt")
+    torch.save(train_target, f"{PROCESSED_PATH}/train_target.pt")
+    torch.save(test_images, f"{PROCESSED_PATH}/test_images.pt")
+    torch.save(test_target, f"{PROCESSED_PATH}/test_target.pt")
+
     return train_set, test_set
 
+if __name__ == "__main__":
+    corrupt_mnist()
