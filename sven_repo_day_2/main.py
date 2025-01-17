@@ -1,7 +1,7 @@
 import torch
 import typer
 from data import corrupt_mnist
-from model import MyAwesomeModel
+from sven_project_day_2.model import MyAwesomeModel
 import torch.nn as nn
 
 

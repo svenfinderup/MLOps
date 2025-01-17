@@ -2,8 +2,17 @@ from pathlib import Path
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 
-DATA_PATH = "data/corruptmnist_v1"
-PROCESSED_PATH = "data/processed"
+DATA_PATH = "/data/corruptmnist_v1"
+PROCESSED_PATH = "/data/processed"
+
+
+import os
+
+for i in range(6):
+    file_path = f"{DATA_PATH}/train_images_{i}.pt"
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+
 
 def normalize_tensor(tensor):
     """Normalize the tensor to have zero mean and unit variance."""
